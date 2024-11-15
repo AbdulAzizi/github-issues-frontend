@@ -15,6 +15,7 @@ import { RiArrowLeftLine } from 'react-icons/ri';
 import { Issue } from '../types';
 import { useAppDispatch } from '../hooks';
 import { setCurrentIssue } from '../redux/slices/issuesSlice';
+import ReactMarkdown from 'react-markdown';
 
 type IssueDetailsProps = {
   issue: Issue;
@@ -87,7 +88,7 @@ const IssueDetails: React.FC<IssueDetailsProps> = ({ issue }) => {
 
         <Box mt={4} w="full" divideX="2px">
           <Text fontSize="md" whiteSpace="pre-wrap" color="gray.700">
-            {issue.body}
+            <ReactMarkdown>{issue.body}</ReactMarkdown>
           </Text>
         </Box>
       </VStack>
