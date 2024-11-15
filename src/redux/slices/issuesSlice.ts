@@ -12,7 +12,9 @@ const initialState: IssuesState = {
 const issuesSlice = createSlice({
   name: 'issues',
   initialState,
-  reducers: {},
+  reducers: {
+    resetIssues: () => initialState,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchIssues.pending, (state) => {
@@ -30,5 +32,5 @@ const issuesSlice = createSlice({
       });
   },
 });
-
+export const { resetIssues } = issuesSlice.actions;
 export default issuesSlice.reducer;

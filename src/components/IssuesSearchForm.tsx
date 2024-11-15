@@ -5,6 +5,7 @@ import IssuesList from './IssuesList';
 import { fetchIssues } from '../redux/thunks/issuesThunk';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux/store';
+import { resetIssues } from '../redux/slices/issuesSlice';
 
 const SearchForm: React.FC = () => {
   const [owner, setOwner] = useState('facebook');
@@ -20,7 +21,10 @@ const SearchForm: React.FC = () => {
         description: error,
         type: 'error',
       });
-  }, [error]);
+    return () => {
+      dispatch(resetIssues());
+    };
+  }, [error, dispatch]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,7 +43,6 @@ const SearchForm: React.FC = () => {
       w="full"
       maxW="6xl"
       mx="auto"
-      mt={8}
       p={8}
       boxShadow="lg"
       borderRadius="lg"
