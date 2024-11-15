@@ -3,17 +3,14 @@ import { Box, Input, VStack, Heading, HStack } from '@chakra-ui/react';
 import { Field, toaster, Button } from './ui';
 import IssuesList from './IssuesList';
 import { fetchIssues } from '../redux/thunks/issuesThunk';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../redux/store';
 import { resetIssues } from '../redux/slices/issuesSlice';
+import { useAppDispatch, useAppSelector } from '../hooks';
 
 const SearchForm: React.FC = () => {
   const [owner, setOwner] = useState('facebook');
   const [repo, setRepo] = useState('react');
-  const { issues, status, error } = useSelector(
-    (state: RootState) => state.issues,
-  );
-  const dispatch = useDispatch<AppDispatch>();
+  const { issues, status, error } = useAppSelector((state) => state.issues);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (error)

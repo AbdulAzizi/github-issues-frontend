@@ -36,7 +36,7 @@ const IssuesListItem: React.FC<Issue> = ({
                 fontSize="0.8em"
                 colorScheme="teal"
                 bg={`#${label.color}`}
-                color={label.color === 'b60205' ? 'white' : 'black'}
+                color={'white'}
                 px={2}
                 py={1}
                 borderRadius="md"
