@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Input, VStack, Heading, HStack } from '@chakra-ui/react';
 import { Field, toaster, Button } from './ui';
 import IssuesList from './IssuesList';
@@ -10,7 +10,6 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 const SearchForm: React.FC = () => {
   const [owner, setOwner] = useState('facebook');
   const [repo, setRepo] = useState('react');
-  const containerRef = useRef<HTMLDivElement>(null);
   const { issues, status, error, currentIssue } = useAppSelector(
     (state) => state.issues,
   );
@@ -27,15 +26,6 @@ const SearchForm: React.FC = () => {
     };
   }, [error, dispatch]);
 
-  useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    }
-  }, [currentIssue]);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!owner || !repo) {
@@ -45,7 +35,14 @@ const SearchForm: React.FC = () => {
       });
       return;
     }
-    dispatch(fetchIssues({ owner, repo, page: 1 }));
+    dispatch(
+      fetchIssues({
+        owner,
+        repo,
+        page: 1,
+        limit: import.meta.env.VITE_ISSUES_PER_FETCH,
+      }),
+    );
   };
 
   return (
@@ -89,21 +86,14 @@ const SearchForm: React.FC = () => {
       </HStack>
 
       <Box
+        style={{ overflowY: 'auto', maxHeight: 'calc(100vh - 300px)' }}
         width="full"
-        style={{
-          overflowY: 'auto',
-          maxHeight: 'calc(100vh - 300px)',
-          boxShadow: issues.length
-            ? 'inset 0px -10px 10px -10px rgba(0, 0, 0, 0.3)'
-            : 'none',
-        }}
         mt={4}
-        ref={containerRef}
       >
         {currentIssue ? (
           <IssueDetails issue={currentIssue} />
         ) : (
-          <IssuesList issues={issues} />
+          <IssuesList owner={owner} repo={repo} issues={issues} />
         )}
       </Box>
     </VStack>
