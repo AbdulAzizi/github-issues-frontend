@@ -1,12 +1,17 @@
 export interface LogEntry {
-  _id: string;
+  id: string;
   ip: string;
   timestamp: string;
-  type: "get_issues" | "get_issue" | "search_issues";
-  additionalInfo?: string;
+  requestType: 'get_issues' | 'get_issue' | 'search_issues';
+  details: { url: string; headers: object };
 }
 
 export interface LogsState {
   logs: LogEntry[];
-  status: "idle" | "loading" | "succeeded" | "failed";
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  error: string | null;
+}
+
+export interface FetchLogParams {
+  page?: number;
 }

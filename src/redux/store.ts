@@ -1,9 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
-import issuesSlice from "./slices/issuesSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import issuesSlice from './slices/issuesSlice';
+import logsSlice from './slices/logsSlice';
 
 const store = configureStore({
   reducer: {
     issues: issuesSlice,
+    logs: logsSlice,
   },
 });
 
