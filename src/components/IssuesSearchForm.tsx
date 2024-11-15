@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Input, VStack, Heading, HStack } from '@chakra-ui/react';
 import { Field, toaster, Button } from './ui';
 import IssuesList from './IssuesList';
+import IssueDetails from './IssueDetailed';
 import { fetchIssues } from '../redux/thunks/issuesThunk';
 import { resetIssues } from '../redux/slices/issuesSlice';
 import { useAppDispatch, useAppSelector } from '../hooks';
@@ -9,7 +10,9 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 const SearchForm: React.FC = () => {
   const [owner, setOwner] = useState('facebook');
   const [repo, setRepo] = useState('react');
-  const { issues, status, error } = useAppSelector((state) => state.issues);
+  const { issues, status, error, currentIssue } = useAppSelector(
+    (state) => state.issues,
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -76,7 +79,11 @@ const SearchForm: React.FC = () => {
       </HStack>
 
       <Box width="full">
-        <IssuesList issues={issues} />
+        {currentIssue ? (
+          <IssueDetails issue={currentIssue} />
+        ) : (
+          <IssuesList issues={issues} />
+        )}
       </Box>
     </VStack>
   );

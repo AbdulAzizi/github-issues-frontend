@@ -1,14 +1,16 @@
 import React from 'react';
 import { Box, Text, Badge, HStack, VStack, Link } from '@chakra-ui/react';
 import { Issue, IssueLabel } from '../types';
+import { useAppDispatch } from '../hooks';
+import { setCurrentIssue } from '../redux/slices/issuesSlice';
 
-const IssuesListItem: React.FC<Issue> = ({
-  title,
-  number,
-  created_at,
-  labels,
-  url,
-}) => {
+const IssuesListItem: React.FC<Issue> = (issue) => {
+  const { title, number, created_at, labels, url } = issue;
+  const dispatch = useAppDispatch();
+  const setCurrentTask = (issue: Issue) => {
+    dispatch(setCurrentIssue(issue));
+  };
+
   return (
     <Box
       w="full"
@@ -18,6 +20,7 @@ const IssuesListItem: React.FC<Issue> = ({
       borderRadius="md"
       _hover={{ bg: 'gray.50', shadow: 'md' }}
       transition="0.2s"
+      onClick={() => setCurrentTask(issue)}
     >
       <HStack spaceX={4} align="start">
         <VStack align="start" spaceX={1} w="full">

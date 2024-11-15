@@ -14,6 +14,9 @@ const issuesSlice = createSlice({
   initialState,
   reducers: {
     resetIssues: () => initialState,
+    setCurrentIssue: (state, action) => {
+      state.currentIssue = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -32,5 +35,5 @@ const issuesSlice = createSlice({
       });
   },
 });
-export const { resetIssues } = issuesSlice.actions;
+export const { resetIssues, setCurrentIssue } = issuesSlice.actions;
 export default issuesSlice.reducer;
