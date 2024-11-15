@@ -7,6 +7,7 @@ const initialState: IssuesState = {
   currentIssue: null,
   status: 'idle',
   error: null,
+  page: 1,
 };
 
 const issuesSlice = createSlice({
@@ -25,12 +26,12 @@ const issuesSlice = createSlice({
       })
       .addCase(fetchIssues.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.issues = action.payload;
+        state.issues = [...state.issues, ...action.payload.data];
         state.error = null;
+        state.page += 1;
       })
       .addCase(fetchIssues.rejected, (state, action) => {
         state.status = 'failed';
-        state.issues = [];
         state.error = action.error.message || 'Failed to fetch issues';
       });
   },

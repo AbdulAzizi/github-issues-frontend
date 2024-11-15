@@ -32,4 +32,5 @@ export interface IssuesState {
   currentIssue: Issue | null;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
+  page: number;
 }
