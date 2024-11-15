@@ -9,7 +9,7 @@ interface IssuesListProps {
 
 const IssuesList: React.FC<IssuesListProps> = ({ issues }) => {
   return (
-    <VStack align="start" w="full" mt={4}>
+    <VStack align="start" w="full">
       {issues.map((issue: Issue) => (
         <IssuesListItem key={issue.id} {...issue} />
       ))}
