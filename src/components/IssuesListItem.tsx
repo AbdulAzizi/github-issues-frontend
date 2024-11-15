@@ -24,7 +24,7 @@ const IssuesListItem: React.FC<Issue> = (issue) => {
     >
       <HStack spaceX={4} align="start">
         <VStack align="start" spaceX={1} w="full">
-          <Link href={url} fontWeight="bold" fontSize="lg" color="blue.500">
+          <Link fontWeight="bold" fontSize="lg" color="blue.500">
             {title}
           </Link>
 
